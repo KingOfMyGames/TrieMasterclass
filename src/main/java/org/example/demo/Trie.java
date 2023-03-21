@@ -13,50 +13,29 @@ public class Trie {
         root = new TrieNode();
     }
 
+
     public void insert(String word) {
-        TrieNode current = root;
-        for (char letter : word.toCharArray()) {
-            current = current.getChildren().computeIfAbsent(letter, x -> new TrieNode());
-        }
-        current.setEndOfWord(true);
+        // TODO implement
+        // Hint: word.toCharArray() allows you to easily loop over all letters
     }
 
     public List<String> findAllWordsStartingWith(String prefix, int maxWords) {
         List<String> result = new ArrayList<>();
-        TrieNode current = findNodeOfWord(prefix);
-        if (current != null) {
-            addAllWordsInNodeToList(current, prefix, result, maxWords);
+        TrieNode nodeRepresentingPrefix = findNodeOfWord(prefix);
+        if (nodeRepresentingPrefix != null) {
+            addAllWordsInNodeToList(nodeRepresentingPrefix, prefix, result, maxWords);
         }
         return result;
     }
 
     private TrieNode findNodeOfWord(String word) {
-        TrieNode current = root;
-        for (char c : word.toCharArray()) {
-            TrieNode node = current.getChildren().get(c);
-            if (node == null) {
-                return null;
-            }
-            current = node;
-        }
-        return current;
+        // TODO implement
+        return null;
     }
 
+    // Hint: This method should be a recursive method. Make sure to stop when you have found maxWords
     private void addAllWordsInNodeToList(TrieNode node, String currentNodeWord, List<String> result, int maxWords) {
-        if (node.isEndOfWord()) {
-            result.add(currentNodeWord);
-            if (result.size() == maxWords) {
-                return;
-            }
-        }
-        for (Map.Entry<Character, TrieNode> entry : node.getChildren().entrySet()) {
-            char c = entry.getKey();
-            TrieNode child = entry.getValue();
-            addAllWordsInNodeToList(child, currentNodeWord + c, result, maxWords);
-            if (result.size() == maxWords) {
-                return;
-            }
-        }
+        // TODO implement
     }
 
     static class TrieNode {

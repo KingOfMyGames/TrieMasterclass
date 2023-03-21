@@ -10,16 +10,15 @@ import java.util.List;
 public abstract class AbstractSearchController {
 
     protected final List<String> words = new ArrayList<>();
-    protected final Trie trie = new Trie();
+    // protected final Trie trie = new Trie();
 
     public AbstractSearchController(String filename) {
         try (InputStream inputStream = FruitController.class.getResourceAsStream("/textFiles/" + filename)) {
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-            // Read the lines from the file into an ArrayList
-            String line;
-            while ((line = br.readLine()) != null) {
-                words.add(line);
-                trie.insert(line);
+            String word;
+            while ((word = br.readLine()) != null) {
+                words.add(word);
+                // trie.insert(word);
             }
         } catch (IOException e) {
             System.err.format("IOException: %s%n", e);
@@ -31,23 +30,15 @@ public abstract class AbstractSearchController {
         long totTime = 0;
         for (int i = 0; i < concurrentUsers; i++) {
             long start = System.nanoTime();
+
             searchWord(input);
+
             long end = System.nanoTime();
             totTime += (end - start);
         }
-        System.out.println("Avarage list search takes " + totTime / concurrentUsers + "ns");
+        System.out.println("Avarage search takes " + totTime / concurrentUsers + "ns, or about " + totTime / concurrentUsers / 1000000 + "ms");
 
-        long totTimeTrie = 0;
-        for (int i = 0; i < concurrentUsers; i++) {
-            long start = System.nanoTime();
-            searchTrie(input);
-            long end = System.nanoTime();
-            totTimeTrie += (end - start);
-        }
-        System.out.println("Avarage trie search takes " + totTimeTrie / concurrentUsers + "ns");
-        System.out.println("Diff " + (totTime - totTimeTrie) / concurrentUsers + "ns");
-
-        return searchTrie(input);
+        return searchWord(input);
     }
 
     private List<String> searchWord(String input) {
@@ -63,7 +54,8 @@ public abstract class AbstractSearchController {
         return filteredWords;
     }
 
-    private List<String> searchTrie(String input) {
-        return trie.findAllWordsStartingWith(input, 10);
-    }
+    // TODO once you implement the Trie class, use this instead of searchWord() in timedSearch()
+    // private List<String> searchTrie(String input) {
+    //     return trie.findAllWordsStartingWith(input, 10);
+    // }
 }
