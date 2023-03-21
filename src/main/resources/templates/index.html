@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spring Boot Demo</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script th:src="@{/js/app.js}"></script>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    h1 {
+      text-align: center;
+      color: slategray;
+      font-family: math;
+    }
+    #textInput {
+      background-color: #d3d3d3;
+      width: 400px;
+      height: 30px;
+      margin: 0 auto;
+    }
+    #results {
+      width: auto;
+      text-align: center;
+    }
+    #results ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    #results a {
+      text-decoration: none;
+      font-size: large;
+      font-family: sans-serif;
+    }
+    #results li {
+      background-color: #c2ff3b;
+      border-left: 1px solid black;
+      border-right: 1px solid black;
+      padding: 10px;
+      color: #000000;
+    }
+    #results li.odd {
+      background-color: #d7ff7f;
+    }
+    #results li:hover {
+      background-color: #9cde08;
+    }
+  </style>
+</head>
+<body style="background-color: #f0f9de;">
+  <button onclick="window.location.href='/fruitmode'" style="position: absolute; top: 10px; right: 10px;">Fruit mode</button>
+  <div>
+    <h1>WordFinder</h1>
+    <div>
+      <input type="text" id="textInput" onkeyup="showDictionaryList()">
+      <div id="results"></div>
+    </div>
+  </div>
+</body>
+</html>
